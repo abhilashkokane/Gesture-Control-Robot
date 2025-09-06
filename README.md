@@ -1,32 +1,50 @@
 # Gesture-Control-Robot
-The raspberry pi based robot moves as per user hand gestures.
-When user shows one finger, the robot rotates in left direction
-When user shows two finger, the robot rotates in right direction
-When user shows four finger, the robot moves in reverse direction
-When user shows five finger, the robot moves in forward direction
-When user shows fist, the robot stops.
 
-For hand detection and tracking, MediaPipe library is used.
-Find the link here https://google.github.io/mediapipe/solutions/hands.html
+## Project Overview
+This project implements a **gesture-controlled robot** using a **Raspberry Pi** and **hand tracking with MediaPipe**.  
+The robot responds to specific hand gestures and moves accordingly, making it an interactive demonstration of computer vision and robotics integration.  
 
-#Face Detection Model
-Step 1: Get the user images. Collected around 800 samples
-Step 2: Train them using the haarcascade classifiers
-Step 3: Predict the accuracy and put the name of user.
+---
 
-#Libraries Used
-1. In Pycharm:
+## Gesture Control Mapping
+The robot movement is mapped to the number of fingers detected:
+- **1 Finger** → Rotate **Left**  
+- **2 Fingers** → Rotate **Right**  
+- **4 Fingers** → Move **Backward**  
+- **5 Fingers** → Move **Forward**  
+- **Fist (0 Fingers)** → **Stop**  
 
+Hand detection and tracking is implemented using [MediaPipe Hands](https://google.github.io/mediapipe/solutions/hands.html), which provides efficient real-time hand landmark recognition.
+
+---
+
+## Communication with MQTT
+The robot uses the **MQTT protocol** for communication between the gesture detection system (running on a PC) and the Raspberry Pi:  
+- **Publisher**: The gesture recognition code publishes commands (e.g., "forward", "left") to an MQTT topic.  
+- **Broker**: Mosquitto MQTT broker manages message delivery.  
+- **Subscriber**: The Raspberry Pi rover subscribes to the topic and executes corresponding movement commands.  
+
+This design enables a lightweight, real-time, and scalable way of sending commands, making the system more modular and network-friendly.
+
+---
+
+## Face Detection Model (Additional Feature)
+A face recognition system is also implemented using **Haarcascade Classifiers**:
+1. Collect ~800 face images per user.  
+2. Train the model using Haarcascade.  
+3. Predict user identity during runtime and display the name with accuracy.  
+
+---
+
+## Libraries & Tools Used
+
+### On PC / Development Machine
 pip install opencv-python
-
 pip install mediapipe
-
 pip install paho-mqtt
 
-2. In Raspberry Pi
+### On Raspberry Pi
 
 sudo pip install paho-mqtt
-
 sudo apt-get install -y mosquitto mosquitto-clients
-
 sudo systemctl enable mosquitto
