@@ -4,6 +4,8 @@
 This project implements a **gesture-controlled robot** using a **Raspberry Pi** and **hand tracking with MediaPipe**.  
 The robot responds to specific hand gestures and moves accordingly, making it an interactive demonstration of computer vision and robotics integration.  
 
+https://github.com/user-attachments/assets/0ca84fa8-69bb-4c16-9d66-594d3e455bd5
+
 ---
 
 ## Gesture Control Mapping
